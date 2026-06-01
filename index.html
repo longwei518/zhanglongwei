@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎁 61儿童节神秘礼物</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* 飘落星星背景 */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 520px;
+        width: 90%;
+        margin: 40px 20px;
+      }
+
+      /* 礼盒头部 */
+      .gift-box {
+        text-align: center;
+        margin-bottom: -20px;
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .gift-emoji {
+        font-size: 100px;
+        filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.5));
+        display: block;
+      }
+      .gift-box p {
+        color: #ffd700;
+        font-size: 14px;
+        margin-top: 4px;
+        letter-spacing: 2px;
+      }
+
+      /* 主卡片 */
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+        padding: 40px 30px;
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .card h2 {
+        text-align: center;
+        color: #fff;
+        font-size: 24px;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #ffd700, #ff6b6b, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .card .subtitle {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+
+      /* 表单 */
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .form-group label {
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13px;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+      .form-group label .icon {
+        margin-right: 6px;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        color: #fff;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.3s;
+        font-family: inherit;
+      }
+      .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.2);
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #ffd700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .form-group select {
+        appearance: none;
+        cursor: pointer;
+      }
+      .form-group select option {
+        background: #1a1a2e;
+        color: #fff;
+      }
+
+      /* 双列 */
+      .row {
+        display: flex;
+        gap: 16px;
+      }
+      .row .form-group {
+        flex: 1;
+      }
+
+      /* 神秘进度条随机动画 */
+      .mystery-meter {
+        margin: 28px 0 24px;
+        text-align: center;
+      }
+      .mystery-meter .meter-label {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 12px;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+      }
+      .meter-bar {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .meter-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 3px;
+        background: linear-gradient(90deg, #ff6b6b, #ffd700, #48dbfb, #ff6b6b);
+        background-size: 300% 100%;
+        animation: shimmer 2s linear infinite;
+        transition: width 0.5s ease;
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* 提交按钮 */
+      .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #ffd700, #ff6b6b);
+        border: none;
+        border-radius: 14px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+      }
+      .submit-btn:active {
+        transform: scale(0.97);
+      }
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* 结果弹窗 */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .overlay.show {
+        display: flex;
+      }
+
+      .result-card {
+        background: linear-gradient(145deg, #1a1a2e, #16213e);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 24px;
+        padding: 40px 30px;
+        max-width: 440px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      @keyframes popIn {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .result-card .big-emoji {
+        font-size: 80px;
+        display: block;
+        margin-bottom: 16px;
+      }
+      .result-card h3 {
+        font-size: 22px;
+        color: #ffd700;
+        margin-bottom: 12px;
+      }
+      .result-card .msg {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 24px;
+      }
+      .result-card .close-btn {
+        padding: 10px 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: all 0.3s;
+      }
+      .result-card .close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* 截图提示高亮动画 */
+      .screenshot-box {
+        margin-top: 20px;
+        padding: 16px;
+        background: rgba(255, 107, 107, 0.12);
+        border: 2px dashed #ff6b6b;
+        border-radius: 12px;
+        text-align: center;
+        animation: pulse-border 2s ease-in-out infinite;
+      }
+      @keyframes pulse-border {
+        0%,
+        100% {
+          border-color: #ff6b6b;
+          box-shadow: 0 0 10px rgba(255, 107, 107, 0.1);
+        }
+        50% {
+          border-color: #ffd700;
+          box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+        }
+      }
+
+      /* 五彩纸屑 */
+      .confetti {
+        position: fixed;
+        z-index: 200;
+        pointer-events: none;
+        animation: confettiFall 3s ease-in forwards;
+      }
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .row {
+          flex-direction: column;
+          gap: 0;
+        }
+        .card {
+          padding: 28px 20px;
+        }
+        .gift-emoji {
+          font-size: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 星空背景 -->
+    <canvas class="stars" id="starsCanvas"></canvas>
+
+    <div class="container">
+      <!-- 点击礼盒 -->
+      <div class="gift-box" onclick="shakeBox()" id="giftBox">
+        <span class="gift-emoji">🎁</span>
+        <p>点我拆礼物</p>
+      </div>
+
+      <!-- 表单卡片 -->
+      <div class="card" id="formCard" style="display: none">
+        <h2>🔮 神秘礼物登记处</h2>
+        <p class="subtitle">填写以下信息以解锁你的专属礼物</p>
+
+        <form id="mysteryForm">
+          <div class="form-group">
+            <label><span class="icon">👤</span>姓名</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="你的大名是？"
+              required
+            />
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label><span class="icon">🎂</span>年龄</label>
+              <input
+                type="number"
+                name="age"
+                placeholder="数字即可"
+                min="0"
+                max="150"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label><span class="icon">♈</span>星座</label>
+              <select name="zodiac" required>
+                <option value="">选择星座</option>
+                <option>白羊座</option>
+                <option>金牛座</option>
+                <option>双子座</option>
+                <option>巨蟹座</option>
+                <option>狮子座</option>
+                <option>处女座</option>
+                <option>天秤座</option>
+                <option>天蝎座</option>
+                <option>射手座</option>
+                <option>摩羯座</option>
+                <option>水瓶座</option>
+                <option>双鱼座</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label><span class="icon">👓</span>眼镜度数</label>
+              <input
+                type="text"
+                name="glasses"
+                placeholder="如：350度 / 不近视"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label><span class="icon">👟</span>鞋码</label>
+              <input
+                type="text"
+                name="shoeSize"
+                placeholder="如：42码"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label><span class="icon">💅</span>指甲长度 (mm)</label>
+              <input
+                type="text"
+                name="nailLength"
+                placeholder="请精确测量！"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label><span class="icon">🤔</span>M 还是 L？</label>
+              <select name="ml" required>
+                <option value="">请谨慎选择</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label><span class="icon">💖</span>最喜欢谁？</label>
+            <input
+              type="text"
+              name="favorite"
+              placeholder="请认真回答！"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label><span class="icon">🕵️</span>张龙威是谁？</label>
+            <input type="text" name="whoIsZLW" placeholder="你猜～" required />
+          </div>
+
+          <!-- 神秘进度条 -->
+          <div class="mystery-meter">
+            <div class="meter-label">🔮 神秘指数</div>
+            <div class="meter-bar">
+              <div class="meter-fill" id="meterFill"></div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">🎉 揭晓神秘礼物</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 结果弹窗 -->
+    <div class="overlay" id="overlay">
+      <div class="result-card">
+        <span class="big-emoji" id="resultEmoji">🎉</span>
+        <h3 id="resultTitle"></h3>
+        <p class="msg" id="resultMsg"></p>
+        <button class="close-btn" onclick="closeOverlay()">✨ 再玩一次</button>
+      </div>
+    </div>
+
+    <script>
+      // ============ 邮箱接收配置（只改这一行！） ============
+      const YOUR_EMAIL = "3140745174@qq.com"; // 换成你自己的邮箱！
+
+      // ============ 星空背景 ============
+      const canvas = document.getElementById("starsCanvas");
+      const ctx = canvas.getContext("2d");
+      let stars = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      for (let i = 0; i < 150; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.5 + 0.1,
+          twinkle: Math.random() * Math.PI * 2,
+        });
+      }
+
+      function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const s of stars) {
+          s.twinkle += 0.02;
+          const alpha = 0.3 + Math.sin(s.twinkle) * 0.3 + 0.3;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+          ctx.fill();
+          s.y += s.speed;
+          if (s.y > canvas.height) {
+            s.y = 0;
+            s.x = Math.random() * canvas.width;
+          }
+        }
+        requestAnimationFrame(drawStars);
+      }
+      drawStars();
+
+      // ============ 礼盒交互 ============
+      let boxClickCount = 0;
+      let lastSubmission = null;  // 保存最后一份答卷，供复制按钮用
+      const funnyHints = [
+        "再点一下试试？",
+        "快了快了...",
+        "礼物有点害羞～",
+        "马上就好！",
+        "叮！礼盒松动了！",
+        "最后一下！",
+      ];
+
+      function shakeBox() {
+        boxClickCount++;
+        const box = document.getElementById("giftBox");
+        box.style.animation = "none";
+        box.offsetHeight;
+        box.style.animation = "float 0.3s ease-in-out 3";
+
+        if (boxClickCount >= 3) {
+          setTimeout(() => {
+            box.style.display = "none";
+            document.getElementById("formCard").style.display = "block";
+            document.getElementById("formCard").style.animation =
+              "popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+            updateMysteryMeter();
+          }, 400);
+        } else {
+          const hint = funnyHints[boxClickCount - 1] || "继续点！";
+          box.querySelector("p").textContent = hint;
+        }
+      }
+
+      // ============ 神秘指数随机跳动 ============
+      function updateMysteryMeter() {
+        const fill = document.getElementById("meterFill");
+        const pct = 20 + Math.random() * 60;
+        fill.style.width = pct + "%";
+      }
+
+      // 输入时神秘指数变化
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("mysteryForm");
+        form.addEventListener("input", updateMysteryMeter);
+      });
+
+      // ============ 表单提交 ============
+      document
+        .getElementById("mysteryForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // 神秘指数拉满
+          const fill = document.getElementById("meterFill");
+          fill.style.width = "100%";
+
+          const formData = new FormData(this);
+          const data = Object.fromEntries(formData.entries());
+
+          // 保存答卷，供复制按钮用
+          lastSubmission = data;
+
+          // 静默发送到你的邮箱（formsubmit.co）
+          fetch("https://formsubmit.co/ajax/" + YOUR_EMAIL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              _subject: "🎁 61礼物 - " + (data.name || "神秘人") + "的答卷",
+              姓名: data.name,
+              年龄: data.age,
+              星座: data.zodiac,
+              眼镜度数: data.glasses,
+              鞋码: data.shoeSize,
+              指甲长度mm: data.nailLength,
+              M还是L: data.ml,
+              最喜欢谁: data.favorite,
+              张龙威是谁: data.whoIsZLW,
+            }),
+          }).catch(() => {}); // 静默失败，不影响页面
+
+          // 生成回复
+          const responses = generateResponse(data);
+
+          setTimeout(() => {
+            document.getElementById("resultEmoji").textContent =
+              responses.emoji;
+            document.getElementById("resultTitle").textContent =
+              responses.title;
+            document.getElementById("resultMsg").innerHTML = responses.msg;
+            document.getElementById("overlay").classList.add("show");
+            spawnConfetti();
+          }, 600);
+        });
+
+      function generateResponse(d) {
+        const titles = [
+          "💋 恭喜！你获得了...",
+          "💋 命运之吻已降临！",
+          "💋 神秘礼物揭晓！",
+          "💋 宇宙回应了你的召唤！",
+          "💋 一个香吻穿越银河而来！",
+        ];
+
+        const name = d.name || "神秘人";
+        const age = parseInt(d.age) || 0;
+        const favorite = d.favorite || "某人";
+        const whoIsZLW = d.whoIsZLW || "未解之谜";
+        const ml = d.ml || "?";
+        const zodiac = d.zodiac || "未知";
+        const shoeSize = d.shoeSize || "?";
+        const nail = d.nailLength || "?";
+
+        const kissTypes = [
+          { emoji: "😘", style: "飞吻", speed: "光速", angle: "45°仰角" },
+          {
+            emoji: "💋",
+            style: "烈焰红唇",
+            speed: "超音速",
+            angle: "水平直击",
+          },
+          {
+            emoji: "😚",
+            style: "脸颊轻吻",
+            speed: "温柔慢递",
+            angle: "360°环绕",
+          },
+          {
+            emoji: "🫦",
+            style: "神秘之吻",
+            speed: "量子瞬移",
+            angle: "全维度覆盖",
+          },
+        ];
+        const kiss = kissTypes[Math.floor(Math.random() * kissTypes.length)];
+
+        const roasts = [
+          `${name}，${age}岁，${zodiac}，眼镜${d.glasses}，鞋码${shoeSize}码，指甲${nail}mm——张龙威已根据这些数据精准定位，${kiss.style}将以${kiss.speed}速度发送，预计0.01秒内抵达。`,
+          `经系统鉴定：${name}是${favorite}的头号粉丝。鉴于${whoIsZLW ? '你对张龙威的评价是"' + whoIsZLW + '"' : "你拒绝评价张龙威"}，张龙威表示很满意，决定追加一个${kiss.style}。`,
+          `${zodiac}的${name}，你的${nail}mm指甲和${shoeSize}码鞋码已被张龙威珍藏。作为回报，一个${kiss.style}（${kiss.angle}）已从张龙威发出，请查收。`,
+          `根据${name}填写的${shoeSize}码鞋码和${nail}mm指甲数据，搭配${d.glasses}的视力——张龙威认为你的配置非常完美，特赠${kiss.style}一枚，${kiss.speed}派送中。`,
+        ];
+
+        const randomRoast = roasts[Math.floor(Math.random() * roasts.length)];
+
+        return {
+          emoji: kiss.emoji,
+          title: titles[Math.floor(Math.random() * titles.length)],
+          msg: `
+      <div style="text-align:left;padding:0 10px;">
+        <p style="text-align:center;font-size:56px;margin:10px 0;">${kiss.emoji}</p>
+        <p style="text-align:center;font-size:20px;color:#ff6b6b;font-weight:bold;margin-bottom:16px;">
+          💋 ${kiss.style} 一枚
+        </p>
+        <p>📋 <b>签收人信息：</b></p>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;">
+          姓名：${name} | 年龄：${age} | 星座：${zodiac}<br>
+          眼镜度数：${d.glasses} | 鞋码：${shoeSize}码<br>
+          指甲长度：${nail}mm | 属性：${ml}<br>
+          最喜欢：${favorite}<br>
+          张龙威是：${whoIsZLW}
+        </p>
+        <p style="font-size:14px;line-height:1.8;margin-top:12px;">${randomRoast}</p>
+        <p style="margin-top:12px;color:#ffd700;font-size:14px;text-align:center;">
+          🎈 无论几岁，童心万岁！61快乐 🎈
+        </p>
+        <div class="screenshot-box">
+          <p style="font-size:20px;margin:0 0 10px;color:#ffd700;font-weight:bold;">📋 方式一：点击复制</p>
+          <button onclick="copyResult()" style="display:block;width:100%;padding:14px;margin:0 0 14px;background:linear-gradient(135deg,#ffd700,#ff6b6b);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;letter-spacing:1px;" id="copyBtn">
+            📋 复制所有答案
+          </button>
+          <p style="font-size:12px;color:rgba(255,255,255,0.4);margin:0 0 16px;">复制后微信粘贴发给张龙威</p>
+          <p style="font-size:16px;color:rgba(255,255,255,0.3);margin:6px 0 0;">———— 或 ————</p>
+          <p style="font-size:20px;margin:10px 0 8px;color:#ffd700;font-weight:bold;">📸 方式二：截图</p>
+          <p style="font-size:16px;color:#ff6b6b;font-weight:bold;margin:0;line-height:1.8;">
+            截图发给 <span style="color:#ffd700;font-size:20px;">张龙威</span>
+          </p>
+          <p style="font-size:18px;color:#fff;margin:8px 0 0;line-height:1.6;">
+            有 <span style="color:#ffd700;font-size:24px;font-weight:bold;">惊喜</span> 等着你！
+          </p>
+        </div>
+      </div>
+    `,
+        };
+      }
+
+      // ============ 一键复制答案 ============
+      function copyResult() {
+        if (!lastSubmission) return;
+        const d = lastSubmission;
+        const text = `🎁 61儿童节神秘礼物 — 答卷
+
+👤 姓名：${d.name || ''}
+🎂 年龄：${d.age || ''}
+♈ 星座：${d.zodiac || ''}
+👓 眼镜度数：${d.glasses || ''}
+👟 鞋码：${d.shoeSize || ''}
+💅 指甲长度：${d.nailLength || ''}mm
+🤔 M还是L：${d.ml || ''}
+💖 最喜欢谁：${d.favorite || ''}
+🕵️ 张龙威是谁：${d.whoIsZLW || ''}`;
+
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('copyBtn');
+            btn.textContent = '✅ 已复制！去微信粘贴发给张龙威';
+            btn.style.background = 'linear-gradient(135deg,#48dbfb,#0abde3)';
+            setTimeout(() => {
+              btn.textContent = '📋 复制所有答案';
+              btn.style.background = 'linear-gradient(135deg,#ffd700,#ff6b6b)';
+            }, 3000);
+          });
+        } else {
+          // 降级方案：选中文字让用户手动复制
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          const btn = document.getElementById('copyBtn');
+          btn.textContent = '✅ 已复制！去微信粘贴发给张龙威';
+          btn.style.background = 'linear-gradient(135deg,#48dbfb,#0abde3)';
+          setTimeout(() => {
+            btn.textContent = '📋 复制所有答案';
+            btn.style.background = 'linear-gradient(135deg,#ffd700,#ff6b6b)';
+          }, 3000);
+        }
+      }
+
+      function closeOverlay() {
+        document.getElementById("overlay").classList.remove("show");
+        document.getElementById("meterFill").style.width = "0%";
+        document.getElementById("mysteryForm").reset();
+        document.getElementById("giftBox").style.display = "block";
+        document.getElementById("formCard").style.display = "none";
+        document.getElementById("giftBox").querySelector("p").textContent =
+          "点我拆礼物";
+        boxClickCount = 0;
+        updateMysteryMeter();
+      }
+
+      // ============ 五彩纸屑 ============
+      function spawnConfetti() {
+        const colors = [
+          "#ffd700",
+          "#ff6b6b",
+          "#48dbfb",
+          "#ff9ff3",
+          "#54a0ff",
+          "#5f27cd",
+          "#01a3a4",
+          "#feca57",
+        ];
+        for (let i = 0; i < 60; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * 100 + "%";
+          confetti.style.top = -(Math.random() * 40) + "px";
+          confetti.style.width = Math.random() * 10 + 6 + "px";
+          confetti.style.height = Math.random() * 10 + 6 + "px";
+          confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+          confetti.style.animationDuration = Math.random() * 2 + 2 + "s";
+          confetti.style.animationDelay = Math.random() * 0.5 + "s";
+          document.body.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 3500);
+        }
+      }
+    </script>
+  </body>
+</html>
